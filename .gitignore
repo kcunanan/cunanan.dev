@@ -1,0 +1,17 @@
+.env
+
+# node packages
+node_modules/
+
+# generated files
+ui/dist/
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# OS
+.DS_Store
+
+# PEM files
+*.pem
