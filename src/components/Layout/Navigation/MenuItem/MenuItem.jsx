@@ -6,22 +6,28 @@ import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: (props) => ({
+    width: '150px',
     textTransform: 'uppercase',
     fontSize: '18px',
+    textAlign: 'center',
     '& > a': {
+      '&:first-child': {
+        marginLeft: 0,
+      },
+      margin: '0 25px',
       textDecoration: 'none',
       color: theme.palette.secondary.main,
+      '&.active': {
+        color: theme.palette.secondary.light,
+        fontWeight: 800,
+        content: `"${props.text}"`,
+      },
     },
     '&:hover a': {
       opacity: 0,
     },
     '&:hover::before': {
       position: 'absolute',
-      fontWeight: 800,
-      content: `"${props.text}"`,
-    },
-    '& > a.active': {
-      color: theme.palette.secondary.light,
       fontWeight: 800,
       content: `"${props.text}"`,
     },
