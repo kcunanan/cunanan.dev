@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
     listStyle: 'none',
     fontFamily: '"Merriweather Sans", "Helvetica"',
     display: 'flex',
-    justifyContent: 'space-between',
     [theme.breakpoints.down('sm')]: {
       width: '55%',
     },
