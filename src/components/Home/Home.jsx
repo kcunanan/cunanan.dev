@@ -34,6 +34,11 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 800,
     fontSize: '36px',
     letterSpacing: '0.3em',
+    [theme.breakpoints.down('xs')]: {
+      marginBottom: '2rem',
+      fontSize: '28px',
+      textAlign: 'center',
+    },
   },
   locationImageContainer: {
     textAlign: 'center',
@@ -45,6 +50,12 @@ const useStyles = makeStyles((theme) => ({
   locationImageCaption: {
     fontSize: '18px',
     fontWeight: 300,
+  },
+  centerMobile: {
+    [theme.breakpoints.down('xs')]: {
+      textAlign: 'center',
+      width: '100%',
+    },
   },
   lottieContainer: {
     display: 'flex',
@@ -82,7 +93,9 @@ react subject matter expert\n
 maker of cool things\n
 verified cat enthusiast`}
           </Typography>
-          <OutlinedButton text="look at my stuff" />
+          <div className={classes.centerMobile}>
+            <OutlinedButton text="look at my stuff" />
+          </div>
         </Grid>
         <Grid className={classes.lottieContainer} item sm={3} xs={12}>
           <div className="push" />
@@ -120,7 +133,9 @@ verified cat enthusiast`}
             description="This is a description of a project in about a sentence or two. Give me a brief overview of the application and your role."
             tags={['React', 'React', 'React']}
           />
-          <OutlinedButton text="view all of my projects" />
+          <div className={classes.centerMobile}>
+            <OutlinedButton text="view all of my projects" />
+          </div>
         </Grid>
       </Grid>
       {/* About Section */}
@@ -149,11 +164,11 @@ I'm also a huge fan cats and other fluffy animals.`}
       {/* Location */}
       <Grid container className={classes.grid} justify="center">
         <Grid container item sm={5} xs={12} alignItems="center">
-          <div className={classes.locationTypographyContainer}>
+          <div className={classes.centerMobile}>
             <Typography className={`${classes.body1} ${classes.currently}`} component="p">
               currently situated in
             </Typography>
-            <Typography className={classes.location}>
+            <Typography variant="h5" className={classes.location}>
               LOS ANGELES
             </Typography>
           </div>
