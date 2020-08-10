@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbar: {
     padding: 0,
+    minHeight: '130px',
   },
   linksContainer: {
     padding: 0,
@@ -25,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       width: '40%',
     },
+    [theme.breakpoints.up('lg')]: {
+      width: '30%',
+    },
   },
 }));
 
@@ -35,10 +39,10 @@ const Navigation = () => {
     <AppBar position="static" className={classes.root}>
       <Toolbar className={classes.toolbar}>
         <ul className={classes.linksContainer}>
-          <MenuItem text="Home" link="/" />
-          <MenuItem text="Projects" link="/" />
-          <MenuItem text="Contact" link="/" />
-          <MenuItem text="About" link="/" />
+          <MenuItem text="Home" link="/" exact />
+          <MenuItem text="Projects" link="/projects" />
+          <MenuItem text="Contact" link="/contact" />
+          <MenuItem text="About" link="/about" />
         </ul>
         <div />
       </Toolbar>
