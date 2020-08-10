@@ -2,11 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from '@material-ui/core';
+import { NavLink } from 'react-router-dom';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: (props) => ({
+    width: '150px',
     textTransform: 'uppercase',
+    fontSize: '18px',
+    textAlign: 'center',
+    '& > a': {
+      '&:first-child': {
+        marginLeft: 0,
+      },
+      margin: '0 25px',
+      textDecoration: 'none',
+      color: theme.palette.secondary.main,
+      '&.active': {
+        color: theme.palette.secondary.light,
+        fontWeight: 800,
+        content: `"${props.text}"`,
+      },
+    },
     '&:hover a': {
       opacity: 0,
     },
@@ -16,21 +32,26 @@ const useStyles = makeStyles({
       content: `"${props.text}"`,
     },
   }),
-});
+}));
 
-const MenuItem = ({ link, text }) => {
+const MenuItem = ({ link, text, exact }) => {
   const classes = useStyles({ link, text });
 
   return (
-    <li className={classes.root} data-text="Home">
-      <Link href={link} underline="none" color="inherit">{text}</Link>
+    <li className={classes.root}>
+      <NavLink to={link} exact={exact}>{text}</NavLink>
     </li>
   );
 };
 
 MenuItem.propTypes = {
+  exact: PropTypes.bool,
   link: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
+};
+
+MenuItem.defaultProps = {
+  exact: false,
 };
 
 export default MenuItem;
