@@ -2,11 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from '@material-ui/core';
+import { NavLink } from 'react-router-dom';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: (props) => ({
     textTransform: 'uppercase',
+    fontSize: '18px',
+    '& > a': {
+      textDecoration: 'none',
+      color: theme.palette.secondary.main,
+    },
     '&:hover a': {
       opacity: 0,
     },
@@ -15,22 +20,32 @@ const useStyles = makeStyles({
       fontWeight: 800,
       content: `"${props.text}"`,
     },
+    '& > a.active': {
+      color: theme.palette.secondary.light,
+      fontWeight: 800,
+      content: `"${props.text}"`,
+    },
   }),
-});
+}));
 
-const MenuItem = ({ link, text }) => {
+const MenuItem = ({ link, text, exact }) => {
   const classes = useStyles({ link, text });
 
   return (
-    <li className={classes.root} data-text="Home">
-      <Link href={link} underline="none" color="inherit">{text}</Link>
+    <li className={classes.root}>
+      <NavLink to={link} exact={exact}>{text}</NavLink>
     </li>
   );
 };
 
 MenuItem.propTypes = {
+  exact: PropTypes.bool,
   link: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
+};
+
+MenuItem.defaultProps = {
+  exact: false,
 };
 
 export default MenuItem;
