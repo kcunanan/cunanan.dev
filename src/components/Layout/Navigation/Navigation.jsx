@@ -1,10 +1,12 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import {
+  AppBar, Hidden, IconButton, Toolbar,
+} from '@material-ui/core';
 
 import MenuItem from '_/components/Layout/Navigation/MenuItem/MenuItem';
+import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,7 +14,9 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbar: {
     padding: 0,
-    minHeight: '130px',
+    [theme.breakpoints.up('sm')]: {
+      minHeight: '130px',
+    },
   },
   linksContainer: {
     padding: 0,
@@ -37,12 +41,19 @@ const Navigation = () => {
   return (
     <AppBar position="static" className={classes.root}>
       <Toolbar className={classes.toolbar}>
-        <ul className={classes.linksContainer}>
-          <MenuItem text="Home" link="/" exact />
-          <MenuItem text="Projects" link="/projects" />
-          <MenuItem text="Contact" link="/contact" />
-          <MenuItem text="About" link="/about" />
-        </ul>
+        <Hidden smUp>
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+        </Hidden>
+        <Hidden xsDown>
+          <ul className={classes.linksContainer}>
+            <MenuItem text="Home" link="/" exact />
+            <MenuItem text="Projects" link="/projects" />
+            <MenuItem text="Contact" link="/contact" />
+            <MenuItem text="About" link="/about" />
+          </ul>
+        </Hidden>
         <div />
       </Toolbar>
     </AppBar>
