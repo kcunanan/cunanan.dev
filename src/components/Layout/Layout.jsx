@@ -5,6 +5,7 @@ import { Container } from '@material-ui/core';
 
 import Navigation from '_/components/Layout/Navigation/Navigation';
 import RouteNode from '_/components/RouteNode/RouteNode';
+import Footer from '_/components/Layout/Footer/Footer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,9 +18,12 @@ export default () => {
   const classes = useStyles();
 
   return (
-    <Container fixed className={classes.root}>
-      <Navigation />
-      <RouteNode />
-    </Container>
+    <div className={classes.root}>
+      <Container fixed>
+        <Navigation />
+        <RouteNode />
+      </Container>
+      <Footer />
+    </div>
   );
 };
