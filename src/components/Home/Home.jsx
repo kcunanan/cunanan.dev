@@ -1,15 +1,15 @@
+/* eslint-disable global-require */
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 import Lottie from 'react-lottie';
 
+import { Context } from '_/store/Store';
+
 import SectionHeading from '_/components/Common/SectionHeading/SectionHeading';
 import OutlinedButton from '_/components/Common/OutlinedButton/OutlinedButton';
 import ProjectRow from '_/components/Common/ProjectRow/ProjectRow';
-
-import LosAngeles from '_/assets/images/los_angeles.png';
-import * as catData from '_/assets/images/cat.json';
 
 const useStyles = makeStyles((theme) => ({
   grid: {
@@ -71,27 +71,40 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = () => {
   const classes = useStyles();
+  const [data, setData] = React.useState({});
+  const [{ loading }, dispatch] = React.useContext(Context);
+
+  const url = `${ENVS.API_URL}?query=query SiteByKey($apiKey: String!, $pageSlug: String!) { pageByKey(apiKey: $apiKey, pageSlug: $pageSlug) { id name slug data } }&operationName=SiteByKey&variables={"apiKey": "uxeU8-IWdYXhm1lG_eTd6Mdfbc4", "pageSlug": "home"}`;
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(url);
+      const { data: pageData } = (await response.json()).data?.pageByKey || {};
+      setData(pageData);
+      setTimeout(() => {
+        dispatch({ type: 'SET_LOADING', payload: false });
+      }, 1000);
+    };
+    fetchData();
+  }, [dispatch, url]);
 
   const defaultOptions = {
     loop: true,
     autoplay: true,
-    animationData: catData.default,
+    path: data?.lottie,
     rendererSettings: {
       preserveAspectRatio: 'xMidYMid slice',
     },
   };
 
-  return (
+  return !loading ? (
     <>
       {/* Intro */}
       <Grid container className={classes.grid} spacing={2}>
         <Grid item xs={12} sm={8}>
-          <SectionHeading text="kevin cunanan" />
+          <SectionHeading text={data?.landing?.heading || ''} />
           <Typography className={classes.body1}>
-            {`full stack developer\n
-react subject matter expert\n
-maker of cool things\n
-verified cat enthusiast`}
+            {data?.landing?.description}
           </Typography>
           <div className={classes.centerMobile}>
             <OutlinedButton text="look at my stuff" />
@@ -123,16 +136,6 @@ verified cat enthusiast`}
             description="This is a description of a project in about a sentence or two. Give me a brief overview of the application and your role."
             tags={['React', 'React', 'React']}
           />
-          <ProjectRow
-            name="Project 1"
-            description="This is a description of a project in about a sentence or two. Give me a brief overview of the application and your role."
-            tags={['React', 'React', 'React']}
-          />
-          <ProjectRow
-            name="Project 1"
-            description="This is a description of a project in about a sentence or two. Give me a brief overview of the application and your role."
-            tags={['React', 'React', 'React']}
-          />
           <div className={classes.centerMobile}>
             <OutlinedButton text="view all of my projects" />
           </div>
@@ -141,13 +144,9 @@ verified cat enthusiast`}
       {/* About Section */}
       <Grid container className={classes.grid} spacing={2}>
         <Grid item sm={8} xs={12}>
-          <SectionHeading text="about" />
+          <SectionHeading text={data?.about?.heading || ''} />
           <Typography className={classes.body1}>
-            {`I'm a software engineer, that affirms in team-driven development and a desire to continuously find and implement the best practices.\n
-I believe that the most important skill for a developer is the ability to learn while also having the willingness to adapt. When developing an application, I don't mindlessly develop; instead, I code and build features that make sense and discuss with others on those features that don't.\n
-While the majority of my knowledge has been centered around traditional web development, I'm currently trying personal projects on mobile and desktop platforms using frameworks like Swift and React Native in conjunction with GraphQL.\n
-However, my life extends beyond software engineering and at the end of the day I look for ways to bond with others through activities like competing in super smash bros parties, playing volleyball, or rock climbing; I think having that activity and engagement is super important part of work-life balance.\n
-I'm also a huge fan cats and other fluffy animals.`}
+            {data?.about?.paragraph}
           </Typography>
         </Grid>
         <Grid className={classes.lottieContainer} item sm={3} xs={12}>
@@ -169,19 +168,23 @@ I'm also a huge fan cats and other fluffy animals.`}
               currently situated in
             </Typography>
             <Typography variant="h5" className={classes.location}>
-              LOS ANGELES
+              {data?.location?.city}
             </Typography>
           </div>
         </Grid>
         <Grid className={classes.locationImageContainer} item sm={5} xs={12}>
-          <img className={classes.locationImage} src={LosAngeles} alt="Los Angeles" />
+          <img
+            className={classes.locationImage}
+            src={data?.location?.image?.url}
+            alt={data?.location?.city}
+          />
           <Typography className={classes.locationImageCaption}>
-            {'(And it\'s a blast)'}
+            {data?.location?.caption}
           </Typography>
         </Grid>
       </Grid>
     </>
-  );
+  ) : null;
 };
 
 export default Home;
