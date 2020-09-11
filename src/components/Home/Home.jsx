@@ -106,9 +106,9 @@ const Home = () => {
           <Typography className={classes.body1}>
             {data?.landing?.description}
           </Typography>
-          <div className={classes.centerMobile}>
+          {/* <div className={classes.centerMobile}>
             <OutlinedButton text="look at my stuff" />
-          </div>
+          </div> */}
         </Grid>
         <Grid className={classes.lottieContainer} item sm={3} xs={12}>
           <div className="push" />
