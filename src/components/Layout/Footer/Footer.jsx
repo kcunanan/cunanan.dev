@@ -44,18 +44,27 @@ const useStyles = makeStyles((theme) => ({
 
 const Footer = () => {
   const classes = useStyles();
+  const [data, setData] = React.useState({});
+
+  const url = `${ENVS.API_URL}?query=query SiteByKey($apiKey: String!, $pageSlug: String!) { pageByKey(apiKey: $apiKey, pageSlug: $pageSlug) { id name slug data } }&operationName=SiteByKey&variables={"apiKey": "uxeU8-IWdYXhm1lG_eTd6Mdfbc4", "pageSlug": "footer"}`;
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(url);
+      const { data: pageData } = (await response.json()).data?.pageByKey || {};
+      setData(pageData);
+    };
+    fetchData();
+  }, [url]);
 
   return (
     <div className={classes.root}>
       <Container fixed component="footer">
-        <SectionHeading color="primary" text="contact" />
+        <SectionHeading color="primary" text={data?.heading} />
         <Grid container spacing={8}>
           <Grid item sm={8}>
             <Typography className={classes.body1}>
-              {`I’m currently looking for work! If you’d like to get in contact, feel free to shoot me an email. I have a fairly active Github, so feel free to follow my work there.\n
-
-Whether you’re talking shop or recommending anime,\n
-I’d love to get in touch.`}
+              {data?.paragraph}
             </Typography>
           </Grid>
           <Grid item sm={4}>
@@ -64,19 +73,19 @@ I’d love to get in touch.`}
                 <ListItemIcon className={classes.icon}>
                   <MailOutlineIcon color="primary" />
                 </ListItemIcon>
-                <ListItemText disableTypography primary="email" />
+                <ListItemText disableTypography primary={data?.email} />
               </ListItem>
               <ListItem>
                 <ListItemIcon className={classes.icon}>
                   <GitHubIcon color="primary" />
                 </ListItemIcon>
-                <ListItemText disableTypography primary="github" />
+                <ListItemText disableTypography primary={data?.github} />
               </ListItem>
               <ListItem>
                 <ListItemIcon className={classes.icon}>
                   <InstagramIcon color="primary" />
                 </ListItemIcon>
-                <ListItemText disableTypography primary="instagram" />
+                <ListItemText disableTypography primary={data?.instagram} />
               </ListItem>
             </List>
           </Grid>
