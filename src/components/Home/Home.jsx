@@ -3,7 +3,7 @@ import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
-import Lottie from 'react-lottie';
+import Lottie from 'lottie-web-react';
 
 import { Context } from '_/store/Store';
 
@@ -72,7 +72,8 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   const classes = useStyles();
   const [data, setData] = React.useState({});
-  const [{ loading }, dispatch] = React.useContext(Context);
+  const [options, setOptions] = React.useState({});
+  const [, dispatch] = React.useContext(Context);
 
   const url = `${ENVS.API_URL}?query=query SiteByKey($apiKey: String!, $pageSlug: String!) { pageByKey(apiKey: $apiKey, pageSlug: $pageSlug) { id name slug data } }&operationName=SiteByKey&variables={"apiKey": "uxeU8-IWdYXhm1lG_eTd6Mdfbc4", "pageSlug": "home"}`;
 
@@ -81,6 +82,14 @@ const Home = () => {
       const response = await fetch(url);
       const { data: pageData } = (await response.json()).data?.pageByKey || {};
       setData(pageData);
+      setOptions({
+        loop: true,
+        autoplay: true,
+        path: pageData?.lottie,
+        rendererSettings: {
+          preserveAspectRatio: 'xMidYMid slice',
+        },
+      });
       setTimeout(() => {
         dispatch({ type: 'SET_LOADING', payload: false });
       }, 1000);
@@ -88,16 +97,7 @@ const Home = () => {
     fetchData();
   }, [dispatch, url]);
 
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    path: data?.lottie,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
-    },
-  };
-
-  return !loading ? (
+  return (
     <>
       {/* Intro */}
       <Grid container className={classes.grid} spacing={2}>
@@ -113,7 +113,7 @@ const Home = () => {
         <Grid className={classes.lottieContainer} item sm={3} xs={12}>
           <div className="push" />
           <Lottie
-            options={defaultOptions}
+            options={options}
             height={300}
             width={300}
             isStopped={false}
@@ -152,7 +152,7 @@ const Home = () => {
         <Grid className={classes.lottieContainer} item sm={3} xs={12}>
           <div className="push" />
           <Lottie
-            options={defaultOptions}
+            options={options}
             height={300}
             width={300}
             isStopped={false}
@@ -184,7 +184,7 @@ const Home = () => {
         </Grid>
       </Grid>
     </>
-  ) : null;
+  );
 };
 
 export default Home;

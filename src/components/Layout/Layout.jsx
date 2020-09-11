@@ -2,15 +2,13 @@ import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Backdrop, Container } from '@material-ui/core';
-import Lottie from 'react-lottie';
+import Lottie from 'lottie-web-react';
 
 import { Context } from '_/store/Store';
 
 import Navigation from '_/components/Layout/Navigation/Navigation';
 import RouteNode from '_/components/RouteNode/RouteNode';
 import Footer from '_/components/Layout/Footer/Footer';
-
-import * as loader from '_/assets/images/day-night.json';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,33 +19,50 @@ const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 1,
     backgroundColor: theme.palette.secondary.main,
   },
+  container: (props) => ({
+    visibility: props.loading ? 'hidden' : '',
+  }),
+  lottieContainer: {
+    height: '300px',
+    width: '300px',
+  },
 }));
 
 const defaultOptions = {
   loop: true,
   autoplay: true,
-  animationData: loader.default,
+  path: 'https://assets8.lottiefiles.com/packages/lf20_cHA3rG.json',
   rendererSettings: {
     preserveAspectRatio: 'xMidYMid slice',
   },
 };
 
 export default () => {
-  const classes = useStyles();
   const [{ loading }] = React.useContext(Context);
+  const classes = useStyles({ loading });
 
   return (
     <div className={classes.root}>
-      <Backdrop className={classes.backdrop} open={loading}>
-        <Lottie
-          options={defaultOptions}
-          height={300}
-          width={300}
-          isStopped={false}
-          isPaused={false}
-        />
+      <Backdrop
+        open={loading}
+        transitionDuration={{
+          appear: 0,
+          enter: 500,
+          exit: 500,
+        }}
+        className={classes.backdrop}
+      >
+        <div className={classes.lottieContainer}>
+          <Lottie
+            options={defaultOptions}
+            height={300}
+            width={300}
+            isStopped={false}
+            isPaused={false}
+          />
+        </div>
       </Backdrop>
-      <Container fixed>
+      <Container fixed className={classes.container}>
         <Navigation />
         <RouteNode />
       </Container>
