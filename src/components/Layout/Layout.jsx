@@ -62,11 +62,13 @@ export default () => {
           />
         </div>
       </Backdrop>
-      <Container fixed className={classes.container}>
-        <Navigation />
-        <RouteNode />
-      </Container>
-      <Footer />
+      <div className={classes.container}>
+        <Container fixed>
+          <Navigation />
+          <RouteNode />
+        </Container>
+        <Footer />
+      </div>
     </div>
   );
 };
