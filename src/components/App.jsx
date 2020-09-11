@@ -8,6 +8,7 @@ import ReactGA from 'react-ga';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import Layout from '_/components/Layout/Layout';
+import Store from '_/store/Store';
 
 import '../assets/styles/main.less';
 
@@ -54,12 +55,14 @@ if (appContainer === null) {
 
 // app component
 const App = () => (
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <Router>
-      <Layout />
-    </Router>
-  </ThemeProvider>
+  <Store>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <Layout />
+      </Router>
+    </ThemeProvider>
+  </Store>
 );
 
 // renderer
