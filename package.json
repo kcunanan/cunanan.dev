@@ -18,8 +18,8 @@
     "test": "jest",
     "lint": "eslint --ext .jsx,.js ./src/",
     "lint:watch": "npm run lint -- --watch",
-    "dev": "APP_ENV=development API_URL=http://api.floatql.com/graphql/ node ./tools/devServer.js",
-    "build": "APP_ENV=production API_URL=http://api.floatql.com/graphql/ node ./tools/build.js"
+    "dev": "APP_ENV=development API_URL=https://api.floatql.com/graphql/ node ./tools/devServer.js",
+    "build": "APP_ENV=production API_URL=https://api.floatql.com/graphql/ node ./tools/build.js"
   },
   "dependencies": {
     "@material-ui/core": "~4.11.0",
