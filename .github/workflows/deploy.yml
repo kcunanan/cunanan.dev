@@ -22,5 +22,6 @@ jobs:
         with:
           target_branch: gh-pages
           build_dir: dist
+          fqdn: cunanan.dev
         env:
           GITHUB_TOKEN: ${{ secrets.REPOSITORY_TOKEN }}
