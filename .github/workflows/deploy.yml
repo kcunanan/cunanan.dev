@@ -18,7 +18,7 @@ jobs:
       - run: npm run build
       - run: npm run test
       - name: Deploy
-        uses: crazy-max/ghaction-github-page@v1
+        uses: crazy-max/ghaction-github-pages@v1
         with:
           target_branch: gh-pages
           build_dir: docs
