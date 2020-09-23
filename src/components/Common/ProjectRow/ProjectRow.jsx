@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 
 import {
-  Grid, Link, Paper, Typography,
+  Grid, Link, Typography,
 } from '@material-ui/core';
+
+import { Link as RouteLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +31,10 @@ const useStyles = makeStyles((theme) => ({
     },
     backgroundColor: theme.palette.secondary.main,
   },
+  logoContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   name: {
     fontSize: '36px',
     marginBottom: '1rem',
@@ -38,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '1.5rem',
   },
   tags: {
-    fontSize: '18px',
+    fontSize: '14px',
     fontFamily: '"Merriweather Sans", sans-serif',
     fontWeight: 800,
   },
@@ -46,46 +52,52 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: '"Merriweather Sans", sans-serif',
     fontWeight: 900,
     fontSize: '18px',
-    [theme.breakpoints.up('sm')]: {
-      position: 'absolute',
-      bottom: 32,
-    },
   },
 }));
 
-const ProjectRow = ({ name, description, tags }) => {
+const ProjectRow = ({
+  project,
+}) => {
   const classes = useStyles();
 
   return (
     <Grid className={classes.root} container spacing={8}>
-      <Grid item xs={12} sm={3}>
-        <Paper className={classes.paper} />
+      <Grid className={classes.logoContainer} item xs={12} sm={2}>
+        <img
+          src={project?.logo?.url}
+          alt={project?.name}
+        />
       </Grid>
-      <Grid item xs={12} sm={9}>
+      <Grid item xs={12} sm={10}>
         <Typography className={classes.name} variant="h4">
-          {name}
+          {project.name}
         </Typography>
         <Typography className={classes.description} variant="body1">
-          {description}
+          {project.headline}
+        </Typography>
+        <Typography className={classes.description} variant="body1">
+          {`tldr; ${project.tldr}`}
         </Typography>
         <Typography className={classes.tags}>
-          {tags.join(', ')}
+          {project.tags}
         </Typography>
-        <Link className={classes.link} href="/" color="secondary">Read More +</Link>
+        <Link component={RouteLink} className={classes.link} to={`/projects/${project.slug}`} color="secondary">Read More +</Link>
       </Grid>
     </Grid>
   );
 };
 
 ProjectRow.propTypes = {
-  name: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  tags: PropTypes.arrayOf(PropTypes.string),
-};
-
-ProjectRow.defaultProps = {
-  description: '',
-  tags: [],
+  project: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    headline: PropTypes.string,
+    tags: PropTypes.string,
+    tldr: PropTypes.string,
+    slug: PropTypes.string.isRequired,
+    logo: PropTypes.shape({
+      url: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 export default ProjectRow;
