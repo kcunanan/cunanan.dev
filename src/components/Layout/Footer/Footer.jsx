@@ -58,9 +58,9 @@ const Footer = () => {
   }, [url]);
 
   return (
-    <div className={classes.root}>
+    <div id="contact" className={classes.root}>
       <Container fixed component="footer">
-        <SectionHeading color="primary" text={data?.heading} />
+        <SectionHeading color="primary" text={data?.heading || ''} />
         <Grid container spacing={8}>
           <Grid item sm={8}>
             <Typography className={classes.body1}>

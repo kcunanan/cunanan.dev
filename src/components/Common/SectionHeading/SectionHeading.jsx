@@ -8,7 +8,7 @@ import { Typography } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   root: (props) => ({
     fontWeight: 900,
-    fontSize: '48px',
+    fontSize: props.size,
     color: props.color === 'secondary' ? theme.palette.secondary.main : theme.palette.primary.main,
     marginBottom: '2rem',
     [theme.breakpoints.down('xs')]: {
@@ -17,8 +17,8 @@ const useStyles = makeStyles((theme) => ({
   }),
 }));
 
-const SectionHeading = ({ text, color }) => {
-  const classes = useStyles({ color });
+const SectionHeading = ({ text, color, size }) => {
+  const classes = useStyles({ color, size });
   return (
     <Typography className={classes.root} variant="h2">{text}</Typography>
   );
@@ -27,10 +27,12 @@ const SectionHeading = ({ text, color }) => {
 SectionHeading.propTypes = {
   text: PropTypes.string.isRequired,
   color: PropTypes.oneOf(['primary', 'secondary']),
+  size: PropTypes.string,
 };
 
 SectionHeading.defaultProps = {
   color: 'secondary',
+  size: '48px',
 };
 
 export default SectionHeading;

@@ -6,7 +6,7 @@ import Lottie from 'lottie-web-react';
 
 import { Context } from '_/store/Store';
 
-import Navigation from '_/components/Layout/Navigation/Navigation';
+import HeaderNode from '_/components/Layout/Navigation/HeaderNode/HeaderNode';
 import RouteNode from '_/components/RouteNode/RouteNode';
 import Footer from '_/components/Layout/Footer/Footer';
 
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   container: (props) => ({
-    visibility: props.loading ? 'hidden' : '',
+    visibility: props.loaded ? '' : 'hidden',
   }),
   lottieContainer: {
     height: '300px',
@@ -38,13 +38,17 @@ const defaultOptions = {
 };
 
 export default () => {
-  const [{ loading }] = React.useContext(Context);
-  const classes = useStyles({ loading });
+  const [{ loaded }] = React.useContext(Context);
+  const classes = useStyles({ loaded });
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [loaded]);
 
   return (
     <div className={classes.root}>
       <Backdrop
-        open={loading}
+        open={!loaded}
         transitionDuration={{
           appear: 0,
           enter: 500,
@@ -63,8 +67,8 @@ export default () => {
         </div>
       </Backdrop>
       <div className={classes.container}>
+        <HeaderNode />
         <Container fixed>
-          <Navigation />
           <RouteNode />
         </Container>
         <Footer />
