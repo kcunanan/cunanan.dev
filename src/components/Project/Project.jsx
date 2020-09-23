@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { useParams } from 'react-router-dom';
 
-import ReactMarkdown from 'react-markdown';
+import Markdown from '_/components/Markdown/Markdown';
 
 import SectionHeading from '_/components/Common/SectionHeading/SectionHeading';
 
@@ -106,27 +106,27 @@ const Project = () => {
       <Grid className={classes.content} item xs={12} sm={9}>
         <div id="overview" />
         <SectionHeading text="Project Overview" size="36px" />
-        <ReactMarkdown source={project?.tldr} />
+        <Markdown source={project?.tldr} escapeHtml={false} />
 
         <div id="tools" />
         <Typography className={classes.tools}>Tools Used</Typography>
-        <ReactMarkdown source={project?.tools} />
+        <Markdown source={project?.tools} escapeHtml={false} />
 
         <div id="introduction" />
         <SectionHeading text="Introduction" size="36px" />
-        <ReactMarkdown source={project?.introduction} />
+        <Markdown source={project?.introduction} escapeHtml={false} />
 
         <div id="requirements" />
         <SectionHeading text="Requirements" size="36px" />
-        <ReactMarkdown source={project?.requirements} />
+        <Markdown source={project?.requirements} escapeHtml={false} />
 
         <div id="architecture" />
         <SectionHeading text="Architecture" size="36px" />
-        <ReactMarkdown source={project?.architecture} escapeHtml={false} />
+        <Markdown source={project?.architecture} escapeHtml={false} />
 
         <div id="ui" />
         <SectionHeading text="UI" size="36px" />
-        <ReactMarkdown source={project?.wireframes_ui} />
+        <Markdown source={project?.wireframes_ui} escapeHtml={false} />
       </Grid>
     </Grid>
   );
