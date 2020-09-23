@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 
 import Reducer from '_/store/Reducer';
 
-const initialState = {
-  loading: true,
+export const initialState = {
+  data: {},
+  loaded: false,
+  fetching: [],
+  pathname: '',
   error: null,
 };
 
