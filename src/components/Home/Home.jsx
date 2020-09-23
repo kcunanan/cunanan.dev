@@ -142,7 +142,7 @@ const Home = () => {
         </Grid>
       </Grid>
       {/* About Section */}
-      <Grid container className={classes.grid} spacing={2}>
+      <Grid id="about" container className={classes.grid} spacing={2}>
         <Grid item sm={8} xs={12}>
           <SectionHeading text={home?.about?.heading || ''} />
           <Typography className={classes.body1}>
