@@ -6,10 +6,16 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStylesImage = makeStyles({
   root: {
     textAlign: 'center',
+    margin: '2rem 0',
     '& > img': {
       maxHeight: '100%',
       maxWidth: '100%',
     },
+  },
+  caption: {
+    color: '#6e6e6e',
+    fontFamily: '"Merriweather Sans", sans-serif',
+    fontWeight: 300,
   },
 });
 
@@ -21,8 +27,8 @@ const Image = ({ alt, src, title }) => {
         alt={alt}
         src={src}
       />
-      <div>
-        <strong>{title}</strong>
+      <div className={classes.caption}>
+        {title}
       </div>
     </div>
   );
