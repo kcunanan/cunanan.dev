@@ -40,6 +40,21 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     minWidth: '40px',
   },
+  powered: {
+    display: 'flex',
+    fontFamily: '"Merriweather Sans", sans-serif',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontWeight: 800,
+    '& img': {
+      height: '75px',
+      marginRight: '1rem',
+    },
+  },
+  poweredByLink: {
+    color: 'inherit',
+    marginLeft: '5px',
+  },
 }));
 
 const Footer = () => {
@@ -90,6 +105,16 @@ const Footer = () => {
             </List>
           </Grid>
         </Grid>
+        <div className={classes.powered}>
+          <a href="https://github.com/ukiyodigital/float" target="_blank" rel="noreferrer">
+            <img
+              src="https://float-static.s3-us-west-2.amazonaws.com/media/float-logo.png"
+              alt="Powered by Float"
+            />
+          </a>
+          {'Powered by '}
+          <a className={classes.poweredByLink} href="https://github.com/ukiyodigital/float" target="_blank" rel="noreferrer">Float</a>
+        </div>
       </Container>
     </div>
   );
