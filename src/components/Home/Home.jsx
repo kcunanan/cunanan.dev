@@ -6,9 +6,10 @@ import { Grid, Typography } from '@material-ui/core';
 import Lottie from 'lottie-web-react';
 
 import { Context } from '_/store/Store';
+import { useFetch } from '_/hooks';
 
 import SectionHeading from '_/components/Common/SectionHeading/SectionHeading';
-import OutlinedButton from '_/components/Common/OutlinedButton/OutlinedButton';
+// import OutlinedButton from '_/components/Common/OutlinedButton/OutlinedButton';
 import ProjectRow from '_/components/Common/ProjectRow/ProjectRow';
 
 const useStyles = makeStyles((theme) => ({
@@ -71,40 +72,38 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = () => {
   const classes = useStyles();
-  const [data, setData] = React.useState({});
   const [options, setOptions] = React.useState({});
-  const [, dispatch] = React.useContext(Context);
+  const [{ data }] = React.useContext(Context);
+  const url = `${ENVS.API_URL}?query=query HomeQuery($apiKey: String!, $pageSlug: String!, $flockSlug: String!) { flockByKey(apiKey: $apiKey, flockSlug: $flockSlug) { id name slug data } pageByKey(apiKey: $apiKey, pageSlug: $pageSlug) { id name slug data } }&operationName=HomeQuery&variables={"apiKey": "uxeU8-IWdYXhm1lG_eTd6Mdfbc4", "pageSlug": "home", "flockSlug": "portfolio"}`;
 
-  const url = `${ENVS.API_URL}?query=query SiteByKey($apiKey: String!, $pageSlug: String!) { pageByKey(apiKey: $apiKey, pageSlug: $pageSlug) { id name slug data } }&operationName=SiteByKey&variables={"apiKey": "uxeU8-IWdYXhm1lG_eTd6Mdfbc4", "pageSlug": "home"}`;
+  const [fetchData] = useFetch(url);
 
   React.useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(url);
-      const { data: pageData } = (await response.json()).data?.pageByKey || {};
-      setData(pageData);
+    fetchData((floatData) => {
+      const { pageByKey } = floatData;
       setOptions({
         loop: true,
         autoplay: true,
-        path: pageData?.lottie,
+        path: pageByKey?.data?.lottie,
         rendererSettings: {
           preserveAspectRatio: 'xMidYMid slice',
         },
       });
-      setTimeout(() => {
-        dispatch({ type: 'SET_LOADING', payload: false });
-      }, 1000);
-    };
-    fetchData();
-  }, [dispatch, url]);
+    });
+  }, [fetchData]);
+
+  const { data: projects = [] } = data?.flockByKey || {};
+
+  const { data: home } = data?.pageByKey || {};
 
   return (
     <>
       {/* Intro */}
       <Grid container className={classes.grid} spacing={2}>
         <Grid item xs={12} sm={8}>
-          <SectionHeading text={data?.landing?.heading || ''} />
+          <SectionHeading text={home?.landing?.heading || ''} />
           <Typography className={classes.body1}>
-            {data?.landing?.description}
+            {home?.landing?.description}
           </Typography>
           {/* <div className={classes.centerMobile}>
             <OutlinedButton text="look at my stuff" />
@@ -131,22 +130,23 @@ const Home = () => {
           </Typography>
         </Grid>
         <Grid item sm={12}>
-          <ProjectRow
-            name="Project 1"
-            description="This is a description of a project in about a sentence or two. Give me a brief overview of the application and your role."
-            tags={['React', 'React', 'React']}
-          />
-          <div className={classes.centerMobile}>
+          {projects.map((project) => (
+            <ProjectRow
+              key={project.id}
+              project={project}
+            />
+          ))}
+          {/* <div className={classes.centerMobile}>
             <OutlinedButton text="view all of my projects" />
-          </div>
+          </div> */}
         </Grid>
       </Grid>
       {/* About Section */}
-      <Grid container className={classes.grid} spacing={2}>
+      <Grid id="about" container className={classes.grid} spacing={2}>
         <Grid item sm={8} xs={12}>
-          <SectionHeading text={data?.about?.heading || ''} />
+          <SectionHeading text={home?.about?.heading || ''} />
           <Typography className={classes.body1}>
-            {data?.about?.paragraph}
+            {home?.about?.paragraph}
           </Typography>
         </Grid>
         <Grid className={classes.lottieContainer} item sm={3} xs={12}>
@@ -168,18 +168,18 @@ const Home = () => {
               currently situated in
             </Typography>
             <Typography variant="h5" className={classes.location}>
-              {data?.location?.city}
+              {home?.location?.city}
             </Typography>
           </div>
         </Grid>
         <Grid className={classes.locationImageContainer} item sm={5} xs={12}>
           <img
             className={classes.locationImage}
-            src={data?.location?.image?.url}
-            alt={data?.location?.city}
+            src={home?.location?.image?.url}
+            alt={home?.location?.city}
           />
           <Typography className={classes.locationImageCaption}>
-            {data?.location?.caption}
+            {home?.location?.caption}
           </Typography>
         </Grid>
       </Grid>

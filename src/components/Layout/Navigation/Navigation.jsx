@@ -11,6 +11,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 const useStyles = makeStyles((theme) => ({
   root: {
     boxShadow: theme.shadows[0],
+    color: 'inherit',
+    backgroundColor: 'inherit',
   },
   toolbar: {
     padding: 0,
@@ -49,9 +51,9 @@ const Navigation = () => {
         <Hidden xsDown>
           <ul className={classes.linksContainer}>
             <MenuItem text="Home" link="/" exact />
-            <MenuItem text="Projects" link="/projects" />
-            <MenuItem text="Contact" link="/contact" />
-            <MenuItem text="About" link="/about" />
+            <MenuItem text="Projects" link="/projects/float" />
+            <MenuItem text="Contact" link="#contact" />
+            <MenuItem text="About" link="/#about" />
           </ul>
         </Hidden>
         <div />

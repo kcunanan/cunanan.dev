@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
+import { Link } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: (props) => ({
     width: '150px',
     textTransform: 'uppercase',
@@ -16,9 +17,9 @@ const useStyles = makeStyles((theme) => ({
       },
       margin: '0 25px',
       textDecoration: 'none',
-      color: theme.palette.secondary.main,
+      color: 'inherit',
       '&.active': {
-        color: theme.palette.secondary.light,
+        color: 'inherit',
         fontWeight: 800,
         content: `"${props.text}"`,
       },
@@ -32,14 +33,18 @@ const useStyles = makeStyles((theme) => ({
       content: `"${props.text}"`,
     },
   }),
-}));
+});
 
 const MenuItem = ({ link, text, exact }) => {
   const classes = useStyles({ link, text });
 
   return (
     <li className={classes.root}>
-      <NavLink to={link} exact={exact}>{text}</NavLink>
+      {link.includes('#') ? (
+        <Link href={link}>{text}</Link>
+      ) : (
+        <NavLink to={link} exact={exact}>{text}</NavLink>
+      )}
     </li>
   );
 };
