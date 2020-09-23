@@ -52,8 +52,9 @@ const Navigation = () => {
           <ul className={classes.linksContainer}>
             <MenuItem text="Home" link="/" exact />
             <MenuItem text="Projects" link="/projects/float" />
-            <MenuItem text="Contact" link="#contact" />
-            <MenuItem text="About" link="/#about" />
+            <MenuItem text="Contact" link="#contact" useLink />
+            <MenuItem text="About" link="/#about" useLink />
+            <MenuItem text="Resume" href="https://float-static.s3-us-west-2.amazonaws.com/media/Kevin_Cunanan_Resume_-_September_2020.docx" useLink />
           </ul>
         </Hidden>
         <div />

@@ -35,15 +35,17 @@ const useStyles = makeStyles({
   }),
 });
 
-const MenuItem = ({ link, text, exact }) => {
+const MenuItem = ({
+  link, text, exact, useLink, ...linkProps
+}) => {
   const classes = useStyles({ link, text });
 
   return (
     <li className={classes.root}>
-      {link.includes('#') ? (
-        <Link href={link}>{text}</Link>
+      {useLink ? (
+        <Link href={link} {...linkProps}>{text}</Link>
       ) : (
-        <NavLink to={link} exact={exact}>{text}</NavLink>
+        <NavLink to={link} exact={exact} {...linkProps}>{text}</NavLink>
       )}
     </li>
   );
@@ -53,10 +55,15 @@ MenuItem.propTypes = {
   exact: PropTypes.bool,
   link: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
+  useLink: PropTypes.bool,
+  // eslint-disable-next-line react/forbid-prop-types
+  linkProps: PropTypes.object,
 };
 
 MenuItem.defaultProps = {
   exact: false,
+  useLink: false,
+  linkProps: {},
 };
 
 export default MenuItem;
