@@ -5,6 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 import Lottie from 'lottie-web-react';
 
+import { Helmet } from 'react-helmet';
+
 import { Context } from '_/store/Store';
 import { useFetch } from '_/hooks';
 
@@ -98,6 +100,16 @@ const Home = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Kevin Cunanan | Portfolio</title>
+        <meta property="og:title" content="Kevin Cunanan | Portfolio" />
+        <meta property="og:description" content="Software Engineer Portfolio" />
+        <meta property="og:image" content="https://float-static.s3-us-west-2.amazonaws.com/media/kevin-cunanan-github.jpg" />
+        <meta property="og:url" content="https://cunanan.dev" />
+        <meta name="twitter:image:alt" content="Kevin Cunanan | GitHub HQ" />
+
+        <meta property="og:site_name" content="Kevin Cunanan | Software Engineer Portfolio" />
+      </Helmet>
       {/* Intro */}
       <Grid container className={classes.grid} spacing={2}>
         <Grid item xs={12} sm={8}>
