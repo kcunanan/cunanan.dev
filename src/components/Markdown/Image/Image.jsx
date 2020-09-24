@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStylesImage = makeStyles({
   root: {
+    display: 'block',
     textAlign: 'center',
     margin: '2rem 0',
     '& > img': {
@@ -13,6 +14,7 @@ const useStylesImage = makeStyles({
     },
   },
   caption: {
+    display: 'block',
     color: '#6e6e6e',
     fontFamily: '"Merriweather Sans", sans-serif',
     fontWeight: 300,
@@ -22,15 +24,15 @@ const useStylesImage = makeStyles({
 const Image = ({ alt, src, title }) => {
   const classes = useStylesImage();
   return (
-    <div className={classes.root}>
+    <span className={classes.root}>
       <img
         alt={alt}
         src={src}
       />
-      <div className={classes.caption}>
+      <span className={classes.caption}>
         {title}
-      </div>
-    </div>
+      </span>
+    </span>
   );
 };
 
