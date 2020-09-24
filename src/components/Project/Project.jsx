@@ -68,7 +68,14 @@ const Project = () => {
   return (
     <>
       <Helmet>
-        <title>{`Kevin Cunanan - Project - ${project?.name}`}</title>
+        <title>{`Kevin Cunanan | Portfolio | ${project?.name}`}</title>
+        <meta property="og:title" content={`Kevin Cunanan | Portfolio | ${project?.name}`} />
+        <meta property="og:description" content={project?.headline} />
+        <meta property="og:image" content={project?.logo?.url} />
+        <meta property="og:url" content={`/projects/${project?.slug}`} />
+        <meta name="twitter:image:alt" content={`${project?.name} Application Logo`} />
+
+        <meta property="og:site_name" content="Kevin Cunanan | Software Engineer Portfolio" />
       </Helmet>
       <Grid container className={classes.root} spacing={2}>
         <Grid className={classes.tableOfContents} item xs={12} sm={3}>
