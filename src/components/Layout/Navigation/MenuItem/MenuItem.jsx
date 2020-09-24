@@ -36,14 +36,14 @@ const useStyles = makeStyles({
 });
 
 const MenuItem = ({
-  link, text, exact, useLink, ...linkProps
+  link, text, exact, useLink, linkProps,
 }) => {
   const classes = useStyles({ link, text });
 
   return (
     <li className={classes.root}>
       {useLink ? (
-        <Link href={link} {...linkProps}>{text}</Link>
+        <Link {...linkProps}>{text}</Link>
       ) : (
         <NavLink to={link} exact={exact} {...linkProps}>{text}</NavLink>
       )}
@@ -53,7 +53,7 @@ const MenuItem = ({
 
 MenuItem.propTypes = {
   exact: PropTypes.bool,
-  link: PropTypes.string.isRequired,
+  link: PropTypes.string,
   text: PropTypes.string.isRequired,
   useLink: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
@@ -64,6 +64,7 @@ MenuItem.defaultProps = {
   exact: false,
   useLink: false,
   linkProps: {},
+  link: '',
 };
 
 export default MenuItem;
