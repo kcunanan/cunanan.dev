@@ -1,25 +1,70 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import ReactGA from 'react-ga';
+import { CssBaseline } from "@material-ui/core";
+import { Provider } from "react-redux";
+import { Router } from "react-router-dom";
+import { createBrowserHistory } from "history";
+import { PersistGate } from "redux-persist/integration/react";
+
+
+import Container from "./containers/Container";
+
+
+import store, { persistor } from "./store";
+
+const { REACT_APP_TRACKING_ID } = process.env;
+
+if (REACT_APP_TRACKING_ID) {
+  ReactGA.initialize(REACT_APP_TRACKING_ID);
+  ReactGA.pageview(window.location.pathname + window.location.search);
+}
+
+const theme = createMuiTheme({
+  palette: {
+    background: {
+      default: 'fff',
+    },
+    primary: {
+      light: '#ffffff',
+      main: '#fff',
+      dark: '#b2b2b2',
+      contrastText: '#32384C',
+    },
+    secondary: {
+      light: '#5b5f6f',
+      main: '#32384C',
+      dark: '#232735',
+      contrastText: '#fff',
+    },
+  },
+  typography: {
+    fontFamily: '"Merriweather", "Merriweather Sans", "Helvetica", "Arial", sans-serif',
+  },
+  // overrides: {
+  //   MuiCssBaseline: {
+  //     '@global': {
+  //       '@font-face': ['Merriweather'],
+  //     },
+  //   },
+  // },
+});
+
+export const history = createBrowserHistory();
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router history={history}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <div className="App">
+            <CssBaseline />
+            <ThemeProvider theme={theme}>
+              <Container />
+            </ThemeProvider>
+          </div>
+        </PersistGate>
+      </Provider>
+    </Router>
   );
 }
 
