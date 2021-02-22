@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles';
 
 import {
   Container,
@@ -10,13 +10,13 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
-} from "@material-ui/core";
+} from '@material-ui/core';
 
-import InstagramIcon from "@material-ui/icons/Instagram";
-import GitHubIcon from "@material-ui/icons/GitHub";
-import MailOutlineIcon from "@material-ui/icons/MailOutline";
+import InstagramIcon from '@material-ui/icons/Instagram';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
 
-import SectionHeading from "../../Common/SectionHeading/SectionHeading";
+import SectionHeading from '../../Common/SectionHeading/SectionHeading';
 
 export type TFooterProps = {
   heading?: string;
@@ -28,71 +28,71 @@ export type TFooterProps = {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    paddingTop: "3rem",
-    paddingBottom: "3rem",
-    overflow: "auto",
+    paddingTop: '3rem',
+    paddingBottom: '3rem',
+    overflow: 'auto',
     backgroundColor: theme.palette.secondary.main,
     color: theme.palette.secondary.contrastText,
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
   },
   body1: {
-    lineHeight: "47px",
-    whiteSpace: "pre-wrap",
-    fontSize: "24px",
-    marginBottom: "2rem",
-    [theme.breakpoints.down("xs")]: {
-      textAlign: "center",
+    lineHeight: '47px',
+    whiteSpace: 'pre-wrap',
+    fontSize: '24px',
+    marginBottom: '2rem',
+    [theme.breakpoints.down('xs')]: {
+      textAlign: 'center',
     },
   },
   link: {
-    "& > a": {
+    '& > a': {
       color: theme.palette.primary.light,
-      textDecoration: "none",
+      textDecoration: 'none',
     },
-    "& > a:hover": {
-      textDecoration: "underline",
+    '& > a:hover': {
+      textDecoration: 'underline',
     },
   },
   list: {
     padding: 0,
     fontFamily: '"Merriweather Sans", sans-serif',
     fontWeight: 800,
-    fontSize: "18px",
+    fontSize: '18px',
   },
   icon: {
-    minWidth: "40px",
+    minWidth: '40px',
   },
   powered: {
-    display: "flex",
+    display: 'flex',
     fontFamily: '"Merriweather Sans", sans-serif',
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     fontWeight: 800,
-    "& img": {
-      height: "75px",
-      marginRight: "1rem",
+    '& img': {
+      height: '75px',
+      marginRight: '1rem',
     },
   },
   poweredByLink: {
-    color: "inherit",
-    marginLeft: "5px",
+    color: 'inherit',
+    marginLeft: '5px',
   },
 }));
 
 const Footer = ({
-  heading = "",
-  paragraph = "",
-  email = "",
-  github = "",
-  instagram = "",
+  heading = '',
+  paragraph = '',
+  email = '',
+  github = '',
+  instagram = '',
 }: TFooterProps) => {
   const classes = useStyles();
 
   return (
     <div id="contact" className={classes.root}>
       <Container fixed component="footer">
-        <SectionHeading color="primary" text={heading || ""} />
+        <SectionHeading color="primary" text={heading || ''} />
         <Grid container spacing={8}>
           <Grid item sm={8}>
             <Typography className={classes.body1}>{paragraph}</Typography>
@@ -113,7 +113,7 @@ const Footer = ({
                   <ListItemText
                     className={classes.link}
                     disableTypography
-                    primary={
+                    primary={(
                       <a
                         target="_blank"
                         rel="noreferrer"
@@ -121,7 +121,7 @@ const Footer = ({
                       >
                         {github}
                       </a>
-                    }
+                    )}
                   />
                 </ListItem>
               )}
@@ -133,7 +133,7 @@ const Footer = ({
                   <ListItemText
                     className={classes.link}
                     disableTypography
-                    primary={
+                    primary={(
                       <a
                         target="_blank"
                         rel="noreferrer"
@@ -141,7 +141,7 @@ const Footer = ({
                       >
                         {instagram}
                       </a>
-                    }
+                    )}
                   />
                 </ListItem>
               )}
@@ -159,7 +159,7 @@ const Footer = ({
               alt="Powered by Float"
             />
           </a>
-          {"Powered by "}
+          {'Powered by '}
           <a
             className={classes.poweredByLink}
             href="https://github.com/ukiyodigital/float"

@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import { Container } from "@material-ui/core";
-import { Switch, Route } from "react-router-dom";
-import Navigation from "../Navigation";
-import ProjectHeader from "../ProjectHeader/ProjectHeader";
+import { Container } from '@material-ui/core';
+import { Switch, Route } from 'react-router-dom';
+import Navigation from '../Navigation';
+import ProjectHeader from '../ProjectHeader/ProjectHeader';
 
-import { IProject } from "../../../../interfaces";
+import { IProject } from '../../../../interfaces';
 
 export type THeaderNodeProps = {
   projects: IProject[];

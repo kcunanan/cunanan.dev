@@ -1,4 +1,4 @@
-import { IFlock, IPage } from "./";
+import { IFlock, IPage } from '.';
 
 export interface ISite {
   id: string;

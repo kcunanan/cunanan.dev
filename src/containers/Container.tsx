@@ -1,39 +1,36 @@
-import { useEffect } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { Helmet } from "react-helmet";
+import { useEffect } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
-import { AppStoreState } from "../store";
-import { getSite, startLoading, stopLoading } from "../store/actions";
-import HomeContainer from "./HomeContainer";
-import ProjectContainer from "./ProjectContainer";
-import Layout from "../components/Layout/Layout";
+import { AppStoreState } from '../store';
+import { getSite, startLoading, stopLoading } from '../store/actions';
+import HomeView from '../components/HomeView';
+import ProjectView from '../components/ProjectView';
+import Layout from '../components/Layout/Layout';
 
-import { IProject } from "../interfaces";
+import { IProject } from '../interfaces';
 
 const Container = () => {
   const dispatch = useDispatch();
-  const { REACT_APP_FLOAT_KEY: apiKey = "" } = process.env;
+  const { REACT_APP_FLOAT_KEY: apiKey = '' } = process.env;
   const site = useSelector((state: AppStoreState) => state.site);
 
-  useEffect(
-    function onMount() {
-      startLoading()(dispatch);
-      if (!site) {
-        getSite(apiKey)(dispatch).then(() => {
-          stopLoading()(dispatch);
-        });
-      } else {
-        setTimeout(() => {
-          stopLoading()(dispatch);
-        }, 1000);
-      }
-    },
-    [apiKey, dispatch, site]
-  );
+  useEffect(() => {
+    startLoading()(dispatch);
+    if (!site) {
+      getSite(apiKey)(dispatch).then(() => {
+        stopLoading()(dispatch);
+      });
+    } else {
+      setTimeout(() => {
+        stopLoading()(dispatch);
+      }, 1000);
+    }
+  }, [apiKey, dispatch, site]);
 
-  const footer = site?.pages.find((page) => page.slug === "footer");
-  const portfolio = site?.flocks.find((flock) => flock.slug === "portfolio");
+  const footer = site?.pages.find((page) => page.slug === 'footer');
+  const portfolio = site?.flocks.find((flock) => flock.slug === 'portfolio');
   const loading = useSelector((state: AppStoreState) => state.loading);
   const projects: IProject[] = (portfolio?.data as IProject[]) || [];
 
@@ -57,15 +54,11 @@ const Container = () => {
       </Helmet>
       <Layout loading={loading} footer={footer} projects={projects}>
         <Switch>
+          <Route exact path="/" render={() => <HomeView site={site} />} />
           <Route
             exact
-            path={"/"}
-            render={() => <HomeContainer site={site} />}
-          />
-          <Route
-            exact
-            path={"/projects/:projectSlug"}
-            render={() => <ProjectContainer projects={projects} />}
+            path="/projects/:projectSlug"
+            render={() => <ProjectView projects={projects} />}
           />
           <Redirect to="/" />
         </Switch>

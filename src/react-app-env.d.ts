@@ -1,2 +1,2 @@
 /// <reference types="react-scripts" />
-declare module "lottie-web-react";
+declare module 'lottie-web-react';

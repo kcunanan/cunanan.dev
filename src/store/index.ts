@@ -1,21 +1,21 @@
-import logger from "redux-logger";
-import thunk from "redux-thunk";
-import { persistReducer, persistStore } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
+import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
 
-import reducers from "./reducers";
+import reducers from './reducers';
 
 const persistConfig = {
-  key: "white-elephant",
+  key: 'white-elephant',
   storage,
-  whitelist: ["site"],
+  whitelist: ['site'],
 };
 
 const persistedReducer = persistReducer(
   persistConfig,
-  combineReducers(reducers)
+  combineReducers(reducers),
 );
 
 const store = configureStore({

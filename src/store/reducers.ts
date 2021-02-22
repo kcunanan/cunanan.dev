@@ -1,13 +1,13 @@
-import { createReducer, PayloadAction } from "@reduxjs/toolkit";
-import ACTION_TYPES from "../constants/actions";
-import { ISite } from "../interfaces";
+import { createReducer, PayloadAction } from '@reduxjs/toolkit';
+import ACTION_TYPES from '../constants/actions';
+import { ISite } from '../interfaces';
 
 const rootReducer = {
   site: createReducer<ISite | null>(null, (builder) => {
     builder
       .addCase(
         ACTION_TYPES.GET_SITE_SUCCESS,
-        (_, action: PayloadAction<ISite>) => action.payload
+        (_, action: PayloadAction<ISite>) => action.payload,
       )
       .addDefaultCase((state) => state);
   }),

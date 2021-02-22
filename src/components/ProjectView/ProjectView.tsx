@@ -1,17 +1,18 @@
-import React from "react";
+import React from 'react';
 
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles';
 
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet';
 
-import Markdown from "../components/Markdown/Markdown";
-import SectionHeading from "../components/Common/SectionHeading/SectionHeading";
+import {
+  Grid, Link, List, ListItem, Typography,
+} from '@material-ui/core';
+import Markdown from '../Markdown/Markdown';
+import SectionHeading from '../Common/SectionHeading/SectionHeading';
 
-import { Grid, Link, List, ListItem, Typography } from "@material-ui/core";
-
-import { IProject } from "../interfaces";
+import { IProject } from '../../interfaces';
 
 export type TProjectContainerProps = {
   projects?: IProject[];
@@ -19,45 +20,45 @@ export type TProjectContainerProps = {
 
 const useStyles = makeStyles({
   root: {
-    marginBottom: "4rem",
+    marginBottom: '4rem',
   },
   logo: {
-    marginTop: "-2rem",
+    marginTop: '-2rem',
   },
   item: {
     fontFamily: '"Merriweather Sans", sans-serif',
-    color: "#696b74",
-    "& > a": {
-      color: "inherit",
+    color: '#696b74',
+    '& > a': {
+      color: 'inherit',
     },
   },
   subItem: {
-    marginLeft: "1rem",
-    borderLeft: "4px solid #ececec",
+    marginLeft: '1rem',
+    borderLeft: '4px solid #ececec',
   },
   content: {
-    fontSize: "16px",
-    lineHeight: "30px",
-    whiteSpace: "break-spaces",
-    "& > div": {
-      marginTop: "4rem",
+    fontSize: '16px',
+    lineHeight: '30px',
+    whiteSpace: 'break-spaces',
+    '& > div': {
+      marginTop: '4rem',
     },
   },
   tools: {
     fontFamily: '"Merriweather Sans", sans-serif',
-    fontSize: "16px",
+    fontSize: '16px',
     fontWeight: 500,
-    textTransform: "uppercase",
+    textTransform: 'uppercase',
   },
 });
 
-const Project = ({ projects }: TProjectContainerProps) => {
+const ProjectView = ({ projects }: TProjectContainerProps) => {
   const classes = useStyles();
   const { projectSlug } = useParams<{ projectSlug: string }>();
   const project = projects?.find((p) => p.slug === projectSlug);
 
   if (!project) {
-    return null;
+    return <div />;
   }
 
   return (
@@ -151,4 +152,4 @@ const Project = ({ projects }: TProjectContainerProps) => {
   );
 };
 
-export default Project;
+export default ProjectView;

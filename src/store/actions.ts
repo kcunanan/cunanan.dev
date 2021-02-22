@@ -1,9 +1,9 @@
-import api from "../api";
-import ACTION_TYPES from "../constants/actions";
-import { createAction } from "@reduxjs/toolkit";
+import { createAction } from '@reduxjs/toolkit';
+import api from '../api';
+import ACTION_TYPES from '../constants/actions';
 
-import { ISite } from "../interfaces";
-import { AppDispatch } from "../store";
+import { ISite } from '../interfaces';
+import { AppDispatch } from '.';
 
 function handleFailureAndErrors(error: any) {
   return {
@@ -13,7 +13,7 @@ function handleFailureAndErrors(error: any) {
 
 const loadingStarted = createAction(ACTION_TYPES.START_LOADING);
 export function startLoading() {
-  return (dispatch: AppDispatch) => {
+  return (dispatch: AppDispatch): boolean => {
     dispatch(loadingStarted());
     return true;
   };
@@ -21,7 +21,7 @@ export function startLoading() {
 
 const loadingStopped = createAction(ACTION_TYPES.STOP_LOADING);
 export function stopLoading() {
-  return (dispatch: AppDispatch) => {
+  return (dispatch: AppDispatch): boolean => {
     dispatch(loadingStopped());
     return false;
   };
@@ -31,10 +31,10 @@ const getSiteRequest = createAction(ACTION_TYPES.GET_SITE);
 const getSiteSuccess = createAction<ISite>(ACTION_TYPES.GET_SITE_SUCCESS);
 const getSiteFailure = createAction(
   ACTION_TYPES.GET_SITE_FAILURE,
-  handleFailureAndErrors
+  handleFailureAndErrors,
 );
 export function getSite(apiKey: string) {
-  return async (dispatch: AppDispatch) => {
+  return async (dispatch: AppDispatch): Promise<ISite> => {
     dispatch(getSiteRequest);
     try {
       const {
