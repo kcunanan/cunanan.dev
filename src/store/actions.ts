@@ -13,20 +13,22 @@ function handleFailureAndErrors(error: any) {
 
 const loadingStarted = createAction(ACTION_TYPES.START_LOADING);
 export function startLoading() {
-  return (dispatch: AppDispatch) => dispatch(loadingStarted);
+  return (dispatch: AppDispatch) => {
+    dispatch(loadingStarted());
+    return true;
+  };
 }
 
 const loadingStopped = createAction(ACTION_TYPES.STOP_LOADING);
 export function stopLoading() {
-  return (dispatch: AppDispatch) => dispatch(loadingStopped);
+  return (dispatch: AppDispatch) => {
+    dispatch(loadingStopped());
+    return false;
+  };
 }
 
-const getSiteRequest = createAction(
-  ACTION_TYPES.GET_SITE
-);
-const getSiteSuccess = createAction<ISite>(
-  ACTION_TYPES.GET_SITE_SUCCESS
-);
+const getSiteRequest = createAction(ACTION_TYPES.GET_SITE);
+const getSiteSuccess = createAction<ISite>(ACTION_TYPES.GET_SITE_SUCCESS);
 const getSiteFailure = createAction(
   ACTION_TYPES.GET_SITE_FAILURE,
   handleFailureAndErrors
@@ -34,15 +36,14 @@ const getSiteFailure = createAction(
 export function getSite(apiKey: string) {
   return async (dispatch: AppDispatch) => {
     dispatch(getSiteRequest);
-    dispatch(loadingStarted);
     try {
-      const { data: { siteByKey: data } } = await api.getSite(apiKey);
+      const {
+        data: { siteByKey: data },
+      } = await api.getSite(apiKey);
       dispatch(getSiteSuccess(data));
-      dispatch(loadingStopped);
-      return data
+      return data;
     } catch (error) {
-      dispatch(getSiteFailure);
-      dispatch(loadingStopped);
+      dispatch(getSiteFailure(error));
       return error;
     }
   };

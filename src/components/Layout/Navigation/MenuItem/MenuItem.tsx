@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import { makeStyles } from '@material-ui/core/styles';
-import { NavLink } from 'react-router-dom';
-import { Link, Theme } from '@material-ui/core';
+import { makeStyles } from "@material-ui/core/styles";
+import { NavLink } from "react-router-dom";
+import { Link, Theme } from "@material-ui/core";
 
 export type TMenuItemProps = {
   text: string;
@@ -10,32 +10,32 @@ export type TMenuItemProps = {
   exact?: boolean;
   useLink?: boolean;
   linkProps?: any;
-}
+};
 
-const useStyles = makeStyles<Theme, Pick<TMenuItemProps, 'text'>>({
+const useStyles = makeStyles<Theme, Pick<TMenuItemProps, "text">>({
   root: ({ text }) => ({
-    width: '150px',
-    textTransform: 'uppercase',
-    fontSize: '18px',
-    textAlign: 'center',
-    '& > a': {
-      '&:first-child': {
+    width: "150px",
+    textTransform: "uppercase",
+    fontSize: "18px",
+    textAlign: "center",
+    "& > a": {
+      "&:first-child": {
         marginLeft: 0,
       },
-      margin: '0 25px',
-      textDecoration: 'none',
-      color: 'inherit',
-      '&.active': {
-        color: 'inherit',
+      margin: "0 25px",
+      textDecoration: "none",
+      color: "inherit",
+      "&.active": {
+        color: "inherit",
         fontWeight: 800,
         content: `"${text}"`,
       },
     },
-    '&:hover a': {
+    "&:hover a": {
       opacity: 0,
     },
-    '&:hover::before': {
-      position: 'absolute',
+    "&:hover::before": {
+      position: "absolute",
       fontWeight: 800,
       content: `"${text}"`,
     },
@@ -43,7 +43,11 @@ const useStyles = makeStyles<Theme, Pick<TMenuItemProps, 'text'>>({
 });
 
 const MenuItem = ({
-  link, text, exact = false, useLink = false, linkProps,
+  link,
+  text,
+  exact = false,
+  useLink = false,
+  linkProps,
 }: TMenuItemProps) => {
   const classes = useStyles({ text });
 
@@ -52,7 +56,9 @@ const MenuItem = ({
       {useLink ? (
         <Link {...linkProps}>{text}</Link>
       ) : (
-        <NavLink to={link} exact={exact} {...linkProps}>{text}</NavLink>
+        <NavLink to={link} exact={exact} {...linkProps}>
+          {text}
+        </NavLink>
       )}
     </li>
   );

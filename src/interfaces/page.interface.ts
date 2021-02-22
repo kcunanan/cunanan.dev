@@ -4,5 +4,5 @@ export interface IPage {
   slug: string;
   data: {
     [key: string]: any;
-  }
+  };
 }

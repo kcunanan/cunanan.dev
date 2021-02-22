@@ -1,10 +1,10 @@
 const ACTIONS = [
-  'GET_SITE',
-  'GET_SITE_SUCCESS',
-  'GET_SITE_FAILURE',
+  "GET_SITE",
+  "GET_SITE_SUCCESS",
+  "GET_SITE_FAILURE",
 
-  'START_LOADING',
-  'STOP_LOADING',
+  "START_LOADING",
+  "STOP_LOADING",
 ];
 
 const ACTION_TYPES = ACTIONS.reduce(
@@ -12,7 +12,7 @@ const ACTION_TYPES = ACTIONS.reduce(
     actions[action] = action;
     return actions;
   },
-  {},
+  {}
 );
 
 export default ACTION_TYPES;

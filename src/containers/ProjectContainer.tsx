@@ -1,55 +1,53 @@
-import React from 'react';
+import React from "react";
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet";
 
-import Markdown from '../components/Markdown/Markdown';
-import SectionHeading from '../components/Common/SectionHeading/SectionHeading';
+import Markdown from "../components/Markdown/Markdown";
+import SectionHeading from "../components/Common/SectionHeading/SectionHeading";
 
-import {
-  Grid, Link, List, ListItem, Typography,
-} from '@material-ui/core';
+import { Grid, Link, List, ListItem, Typography } from "@material-ui/core";
 
-import { IProject } from '../interfaces';
+import { IProject } from "../interfaces";
 
 export type TProjectContainerProps = {
   projects?: IProject[];
-}
+};
 
 const useStyles = makeStyles({
   root: {
-    marginBottom: '4rem',
+    marginBottom: "4rem",
   },
   logo: {
-    marginTop: '-2rem',
+    marginTop: "-2rem",
   },
   item: {
     fontFamily: '"Merriweather Sans", sans-serif',
-    color: '#696b74',
-    '& > a': {
-      color: 'inherit',
+    color: "#696b74",
+    "& > a": {
+      color: "inherit",
     },
   },
   subItem: {
-    marginLeft: '1rem',
-    borderLeft: '4px solid #ececec',
+    marginLeft: "1rem",
+    borderLeft: "4px solid #ececec",
   },
   content: {
-    fontSize: '16px',
-    lineHeight: '30px',
-    whiteSpace: 'break-spaces',
-    '& > div': {
-      marginTop: '4rem',
+    fontSize: "16px",
+    lineHeight: "30px",
+    whiteSpace: "break-spaces",
+    "& > div": {
+      marginTop: "4rem",
     },
   },
   tools: {
     fontFamily: '"Merriweather Sans", sans-serif',
-    fontSize: '16px',
+    fontSize: "16px",
     fontWeight: 500,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
   },
 });
 
@@ -62,18 +60,26 @@ const Project = ({ projects }: TProjectContainerProps) => {
     return null;
   }
 
-
   return (
     <>
       <Helmet>
         <title>{`Kevin Cunanan | Portfolio | ${project?.name}`}</title>
-        <meta property="og:title" content={`Kevin Cunanan | Portfolio | ${project?.name}`} />
+        <meta
+          property="og:title"
+          content={`Kevin Cunanan | Portfolio | ${project?.name}`}
+        />
         <meta property="og:description" content={project?.headline} />
         <meta property="og:image" content={project?.logo?.url} />
         <meta property="og:url" content={`/projects/${project?.slug}`} />
-        <meta name="twitter:image:alt" content={`${project?.name} Application Logo`} />
+        <meta
+          name="twitter:image:alt"
+          content={`${project?.name} Application Logo`}
+        />
 
-        <meta property="og:site_name" content="Kevin Cunanan | Software Engineer Portfolio" />
+        <meta
+          property="og:site_name"
+          content="Kevin Cunanan | Software Engineer Portfolio"
+        />
       </Helmet>
       <Grid container className={classes.root} spacing={2}>
         <Grid item xs={12} sm={3}>
@@ -106,7 +112,9 @@ const Project = ({ projects }: TProjectContainerProps) => {
               <Link href="#aws">AWS Architecture</Link>
             </ListItem>
             <ListItem className={`${classes.item} ${classes.subItem}`}>
-              <Link href="#ci+cd">Continuous Integration / Continuous Delivery</Link>
+              <Link href="#ci+cd">
+                Continuous Integration / Continuous Delivery
+              </Link>
             </ListItem>
             <ListItem className={classes.item}>
               <Link href="#ui">UI</Link>

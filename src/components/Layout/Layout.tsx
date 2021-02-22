@@ -1,22 +1,22 @@
-import { ReactNode, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Backdrop, Container, Theme } from '@material-ui/core';
-import Lottie from 'lottie-web-react';
+import { ReactNode, useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { Backdrop, Container, Theme } from "@material-ui/core";
+import Lottie from "lottie-web-react";
 
-import HeaderNode from './Navigation/HeaderNode/HeaderNode';
-import Footer, { TFooterProps } from './Footer/Footer';
-import { IPage, IProject } from '../../interfaces';
+import HeaderNode from "./Navigation/HeaderNode/HeaderNode";
+import Footer, { TFooterProps } from "./Footer/Footer";
+import { IPage, IProject } from "../../interfaces";
 
 export type TLayoutProps = {
-  children: ReactNode,
-  loading: boolean,
-  footer?: IPage,
-  projects: IProject[],
-}
+  children: ReactNode;
+  loading: boolean;
+  footer?: IPage;
+  projects: IProject[];
+};
 
-const useStyles = makeStyles<Theme, Pick<TLayoutProps, 'loading'>>((theme) => ({
+const useStyles = makeStyles<Theme, Pick<TLayoutProps, "loading">>((theme) => ({
   root: {
-    height: '100%',
+    height: "100%",
     backgroundColor: theme.palette.primary.light,
   },
   backdrop: {
@@ -24,20 +24,20 @@ const useStyles = makeStyles<Theme, Pick<TLayoutProps, 'loading'>>((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   container: ({ loading }) => ({
-    visibility: loading ? 'hidden' : 'initial',
+    visibility: loading ? "hidden" : "initial",
   }),
   lottieContainer: {
-    height: '300px',
-    width: '300px',
+    height: "300px",
+    width: "300px",
   },
 }));
 
 const defaultOptions = {
   loop: true,
   autoplay: true,
-  path: 'https://assets8.lottiefiles.com/packages/lf20_cHA3rG.json',
+  path: "https://assets8.lottiefiles.com/packages/lf20_cHA3rG.json",
   rendererSettings: {
-    preserveAspectRatio: 'xMidYMid slice',
+    preserveAspectRatio: "xMidYMid slice",
   },
 };
 
@@ -75,7 +75,7 @@ const Layout = ({ children, loading, footer, projects }: TLayoutProps) => {
           {/* @ts-ignore */}
           {children}
         </Container>
-        <Footer {...{...footer?.data} as TFooterProps} />
+        <Footer {...({ ...footer?.data } as TFooterProps)} />
       </div>
     </div>
   );
