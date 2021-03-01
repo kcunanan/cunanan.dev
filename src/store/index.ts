@@ -28,6 +28,6 @@ export type AppGetState = typeof store.getState;
 export type AppStoreState = ReturnType<typeof store.getState>;
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 
-export const persistor = persistStore(store, null);
+export const persistor = persistStore(store);
 
 export default store;
