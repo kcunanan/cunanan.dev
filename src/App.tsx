@@ -2,8 +2,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import ReactGA from 'react-ga';
 import { CssBaseline } from '@material-ui/core';
 import { Provider } from 'react-redux';
-import { Router } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import Container from './containers/Container';
@@ -41,11 +40,9 @@ const theme = createMuiTheme({
   },
 });
 
-export const history = createBrowserHistory();
-
 function App() {
   return (
-    <Router history={history}>
+    <Router>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <div className="App">
