@@ -65,6 +65,9 @@ const useStyles = makeStyles((theme) => ({
   yarnWrapper: {
     flexGrow: 1,
     '& > div.string': {
+      [theme.breakpoints.down('xs')]: {
+        height: '100px',
+      },
       content: '""',
       width: '1.5px',
       backgroundColor: '#272b3e',
@@ -112,7 +115,7 @@ const HomeView = ({ site }: THomeViewProps) => {
       {/* Intro */}
       <Grid
         container
-        direction={matches ? 'column-reverse' : 'row'}
+        direction={matches ? 'column' : 'row'}
         className={classes.grid}
         spacing={2}
       >
