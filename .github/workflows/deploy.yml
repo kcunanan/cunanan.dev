@@ -2,7 +2,7 @@ name: Portfolio Deployment CI
 on:
   push:
     branches:
-      - epic/updated-version
+      - develop
 
 jobs:
   build-test-deploy:
