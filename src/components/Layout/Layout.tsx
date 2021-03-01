@@ -1,4 +1,5 @@
 import { ReactNode, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Backdrop, Container, Theme } from '@material-ui/core';
 import Lottie from 'lottie-web-react';
@@ -45,10 +46,11 @@ const Layout = ({
   children, loading, footer, projects,
 }: TLayoutProps) => {
   const classes = useStyles({ loading });
+  const location = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [loading]);
+  }, [location]);
 
   return (
     <div className={classes.root}>

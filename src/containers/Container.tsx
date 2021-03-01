@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import {
+  useLocation, Switch, Route, Redirect,
+} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
@@ -15,6 +17,7 @@ const Container = () => {
   const dispatch = useDispatch();
   const { REACT_APP_FLOAT_KEY: apiKey = '' } = process.env;
   const site = useSelector((state: AppStoreState) => state.site);
+  const location = useLocation();
 
   useEffect(() => {
     startLoading()(dispatch);
@@ -27,7 +30,7 @@ const Container = () => {
         stopLoading()(dispatch);
       }, 1000);
     }
-  }, [apiKey, dispatch, site]);
+  }, [apiKey, dispatch, site, location]);
 
   const footer = site?.pages.find((page) => page.slug === 'footer');
   const portfolio = site?.flocks.find((flock) => flock.slug === 'portfolio');
