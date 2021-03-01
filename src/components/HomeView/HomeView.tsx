@@ -17,7 +17,13 @@ export type THomeViewProps = {
 
 const useStyles = makeStyles((theme) => ({
   grid: {
-    marginBottom: '5rem',
+    marginBottom: '4rem',
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: '7rem',
+    },
+    [theme.breakpoints.down('xs')]: {
+      marginBottom: '8rem',
+    },
   },
   body1: {
     lineHeight: 1.5,
@@ -65,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
   yarnWrapper: {
     flexGrow: 1,
     '& > div.string': {
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('md')]: {
         height: '100px',
       },
       content: '""',
